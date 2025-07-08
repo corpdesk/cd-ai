@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
   synchronize: true,
 })
 export class CdAiUsageLogsTypeModel {
-  @Column({
+  @PrimaryGeneratedColumn({
     name: "cd_ai_usage_logs_type_id",
   })
   cdAiUsageLogsTypeId: number;

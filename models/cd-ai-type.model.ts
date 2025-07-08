@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
   synchronize: true,
 })
 export class CdAiTypeModel {
-  @Column({
+  @PrimaryGeneratedColumn({
     name: "cd_ai_type_id",
   })
   cdAiTypeId: number;
