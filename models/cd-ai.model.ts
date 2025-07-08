@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 @Entity({
   name: "cd_ai",
-  synchronize: false,
+  synchronize: true,
 })
 export class CdAiModel {
   @PrimaryGeneratedColumn({

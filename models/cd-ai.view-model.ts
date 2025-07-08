@@ -15,7 +15,7 @@ export function siGet(q: IQuery) {
 
 @ViewEntity({
   name: "cd_ai_view",
-  synchronize: false,
+  synchronize: true,
   expression: `
             SELECT 
               cd_ai.cd_ai_id AS cdAiId,
