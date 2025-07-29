@@ -1,15 +1,21 @@
 {
-  "module": "cd-ai",
-  "createdAt": "2025-07-29T15:30:25.651Z",
-  "lastUpdated": "2025-07-29T15:30:25.651Z",
-  "version": "0.0.0",
-  "entries": [
-    {
-      "version": "0.0.0",
-      "date": "2025-07-29T15:30:25.651Z",
-      "changes": [
-        "Initial module creation."
-      ]
-    }
-  ]
+  "descriptor": {
+    "baseId": "cd-ai:changelog",
+    "changelogs": [],
+    "contributors": [],
+    "events": [
+      {
+        "baseId": "init-event",
+        "type": "commit",
+        "actor": "system",
+        "description": "Initial commit",
+        "date": "2025-07-29T21:03:59.897Z"
+      }
+    ]
+  },
+  "fileMeta": {
+    "createdAt": "2025-07-30T00:03:59+03:00",
+    "lastUpdated": "2025-07-30T00:03:59+03:00",
+    "origin": "cd-cli"
+  }
 }
