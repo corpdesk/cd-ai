@@ -1,0 +1,13 @@
+{
+  "descriptor": {
+    "baseId": "cd-ai:doc",
+    "version": "0.0.0",
+    "status": "draft",
+    "summary": "Initial auto-generated documentation"
+  },
+  "fileMeta": {
+    "createdAt": "2025-09-02T16:47:24+03:00",
+    "lastUpdated": "2025-09-02T16:47:24+03:00",
+    "origin": "cd-cli"
+  }
+}
