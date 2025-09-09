@@ -1,0 +1,14 @@
+{
+  "descriptor": {
+    "name": "Initial Dev Roadmap",
+    "type": "dev-roadmap",
+    "stages": [],
+    "versionTag": 0,
+    "baseId": "cd-ai:roadmap"
+  },
+  "fileMeta": {
+    "createdAt": "2025-09-09T11:32:27+03:00",
+    "lastUpdated": "2025-09-09T11:32:27+03:00",
+    "origin": "cd-cli"
+  }
+}
