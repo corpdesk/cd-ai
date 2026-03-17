@@ -1,45 +1,63 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
-import { v4 as uuidv4 } from "uuid";
+// src/CdCli/app/cd-ai/models/cd-ai.model.ts
 
-@Entity({
-  name: "cd_ai",
-  synchronize: false,
-})
-export class CdAiModel {
-  @PrimaryGeneratedColumn({
-    name: "cd_ai_id",
-  })
-  cdAiId!: number;
+import { CdAiLogRouterService } from '../services/cd-ai-log-router.service.js';
+import { BudgetStatus } from './budget-guard.model.js';
 
-  @Column({
-    name: "cd_ai_guid",
-    default: "uuid",
-  })
-  cdAiGuid!: string;
-
-  @Column({
-    name: "cd_ai_name",
-  })
-  cdAiName!: string;
-
-  @Column({
-    name: "cd_ai_description",
-  })
-  cdAiDescription!: string;
-
-  @Column({
-    name: "cd_ai_type_id",
-  })
-  cdAiTypeId!: number;
-
-  @Column({
-    name: "doc_id",
-  })
-  docId!: number;
-
-  @Column({
-    name: "cd_ai_enabled",
-    default: true,
-  })
-  cdAiEnabled!: boolean;
+export interface CdAiPromptRequest {
+  provider: 'openai' | 'gemini' | 'deepseek';
+  type: 'chat' | 'code' | 'image' | 'audio' | 'video';
+  model?: string;
+  messages?: CdAiMessage[]; // Always unified shape
+  prompt?: string;
+  temperature?: number;
+  maxTokens?: number;
+  context?: Record<string, any>;
+  files?: Array<{ name: string; type: string; data: string }>;
 }
+
+export interface CdAiMessage {
+  role: 'user' | 'assistant' | 'system' | 'model';
+  content: string;
+  parts?: string[]; // Optional for Gemini
+}
+
+export interface CdAiPromptResponse {
+  success: boolean;
+  message: string;
+  content?: string;
+  data?: any; // For images, audio, etc.
+  usage?: {
+    tokensUsed?: number;
+    estimatedCost?: number;
+  };
+}
+
+export interface CdAiServiceInterface {
+  readonly name: string;
+  readonly type: string;
+  init(): Promise<void>;
+  getBudgetStatus(): Promise<BudgetStatus>;
+}
+
+
+export const CD_AI_LOGS_CMD = {
+  name: 'logs',
+  description: 'Access internal AI logs.',
+  subcommands: [
+    {
+      name: 'ai',
+      description: 'Show buffered background logs from the AI module.',
+      action: {
+        execute: () => {
+          const logs = CdAiLogRouterService.getLogs();
+          if (logs.length === 0) {
+            console.log('No logs found.');
+            return;
+          }
+
+          logs.forEach((line) => console.log(line));
+        },
+      },
+    },
+  ],
+};
