@@ -1,19 +1,19 @@
 // src/CdCli/app/cd-ai/controllers/cd-ai.controller.ts
 
-import { CdAiService } from '../services/cd-ai.service.js';
-import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model.js';
-import { QueueWatcherService } from '../services/queue-watcher.service.js';
-import { BudgetGuardService } from '../services/budget-guard.service.js';
-import { AiServiceRegistry } from '../services/cd-ai-registry.service.js';
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
+import { CdAiService } from '../services/cd-ai.service';
+import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model';
+import { QueueWatcherService } from '../services/queue-watcher.service';
+import { BudgetGuardService } from '../services/budget-guard.service';
+import { AiServiceRegistry } from '../services/cd-ai-registry.service';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
 
 export class CdAiController {
-  //   static async initAiRuntime(): Promise<void> {
-  //     console.log('[cd-ai] Initializing AI runtime...');
-  //     await QueueWatcherService.start();
-  //     BudgetGuardService.start();
-  //   }
 
+  /**
+   * Initializes the AI runtime environment, including starting the queue watcher and initializing all registered AI services.
+   * Also checks the budget status of each service and logs warnings if budgets are low.
+   * This method should be called once during application startup to ensure the AI runtime is ready to handle requests.
+   */
   static async initAiRuntime(): Promise<void> {
     console.log('[cd-ai] Initializing AI runtime...');
     await QueueWatcherService.start();

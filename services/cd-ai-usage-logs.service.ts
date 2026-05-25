@@ -8,7 +8,7 @@ import {
 import { Logging } from "../../../sys/base/winston.log";
 import { ValidationRulesBuilder } from "../../../sys/base/validation-rules-builder";
 import { SessionService } from "../../../sys/user/services/session.service";
-import { CdAiModel } from "../models/cd-ai.model";
+// import { CdAiModel } from "../models/cd-ai.model";
 import { CdAiTypeModel } from "../models/cd-ai-type.model";
 import { CdAiViewModel } from "../models/cd-ai-view.model";
 import { CdAiUsageLogsModel } from "../models/cd-ai-usage-logs.model";
@@ -17,11 +17,11 @@ import { CdAiUsageLogsViewModel } from "../models/cd-ai-usage-logs-view.model";
 
 export class CdAiUsageLogsService {
   logger: Logging;
-  b: BaseService;
-  cdToken: string;
-  uid: number;
+  b: BaseService<any>;
+  cdToken!: string;
+  uid!: number;
   serviceModel: CdAiUsageLogsModel;
-  svSess: SessionService;
+  svSess!: SessionService;
   validationCreateParams: any;
   cRules: any = {
     required: ["cdAiUsageLogsName", "cdAiUsageLogsTypeId"],
@@ -108,7 +108,7 @@ export class CdAiUsageLogsService {
         )
       ) {
         // Success path
-        const pl: CdAiUsageLogsModel = this.b.getPlData(req);
+        const pl: CdAiUsageLogsModel = await this.b.getPlData(req);
 
         await this.b.beforeCreateGeneric(req, {
           cdAiUsageLogsGuid: "GUID",
@@ -128,7 +128,9 @@ export class CdAiUsageLogsService {
     }
 
     if (this.b.err.length > 0) {
-      this.b.cdResp.app_state.info.messages = this.b.err;
+      if (this.b.cdResp.app_state?.info) {
+        this.b.cdResp.app_state.info.messages = this.b.err;
+      }
       await this.b.setAppState(false, this.b.i, svSess.sessResp);
     } else {
       await this.b.setAppState(true, this.b.i, svSess.sessResp);
@@ -161,14 +163,14 @@ export class CdAiUsageLogsService {
    * @param q
    */
   async get(req, res, q?: IQuery): Promise<any> {
-    if (q === null) {
+    if (q === null || q === undefined) {
       q = this.b.getQuery(req);
     }
     // const serviceInput = siGet(q,this)
     this.serviceModel = new CdAiUsageLogsModel();
     const serviceInput: IServiceInput<CdAiUsageLogsModel> =
       this.b.serviceInputGet(
-        q,
+        q as IQuery,
         `CdAiUsageLogsService:getCdAiUsageLogs`,
         CdAiUsageLogsModel,
       );
@@ -206,7 +208,7 @@ export class CdAiUsageLogsService {
     this.b.readCount$(req, res, serviceInput).subscribe((r) => {
       this.b.i.code = "CdAiUsageLogsService::getCount";
       const svSess = new SessionService();
-      svSess.sessResp.cd_token = req.post.dat.token;
+      svSess.sessResp.cd_token = (req as any).post.dat.token;
       svSess.sessResp.ttl = svSess.getTtl();
       this.b.setAppState(true, this.b.i, svSess.sessResp);
       this.b.cdResp.data = r;
@@ -235,7 +237,7 @@ export class CdAiUsageLogsService {
     this.b.readCount$(req, res, serviceInput).subscribe((r) => {
       this.b.i.code = "CdAiUsageLogsService::getPaged";
       const svSess = new SessionService();
-      svSess.sessResp.cd_token = req.post.dat.token;
+      svSess.sessResp.cd_token = (req as any).post.dat.token;
       svSess.sessResp.ttl = svSess.getTtl();
       this.b.setAppState(true, this.b.i, svSess.sessResp);
       this.b.cdResp.data = r;
@@ -261,7 +263,7 @@ export class CdAiUsageLogsService {
     this.b.readQB$(req, res, serviceInput).subscribe((r) => {
       this.b.i.code = serviceInput.docName;
       const svSess = new SessionService();
-      svSess.sessResp.cd_token = req.post.dat.token;
+      svSess.sessResp.cd_token = (req as any).post.dat.token;
       svSess.sessResp.ttl = svSess.getTtl();
       this.b.setAppState(true, this.b.i, svSess.sessResp);
       this.b.cdResp.data = r;
@@ -294,7 +296,7 @@ export class CdAiUsageLogsService {
         // this.logger.logInfo('CdAiUsageLogsService::read$()/r:', r)
         this.b.i.code = "CdAiUsageLogsController::getType";
         const svSess = new SessionService();
-        svSess.sessResp.cd_token = req.post.dat.token;
+        svSess.sessResp.cd_token = (req as any).post.dat.token;
         svSess.sessResp.ttl = svSess.getTtl();
         this.b.setAppState(true, this.b.i, svSess.sessResp);
         this.b.cdResp.data = r;
@@ -355,7 +357,7 @@ export class CdAiUsageLogsService {
       dSource: 1,
     };
     // this.logger.logInfo('CdAiUsageLogsService::update()/02')
-    this.b.update$(req, res, serviceInput).subscribe((ret) => {
+    this.b.update$(req, res, serviceInput).subscribe((ret: any) => {
       this.b.cdResp.data = ret;
       this.b.respond(req, res);
     });
@@ -375,7 +377,7 @@ export class CdAiUsageLogsService {
       dSource: 1,
     };
 
-    this.b.delete$(req, res, serviceInput).subscribe((ret) => {
+    this.b.delete$(req, res, serviceInput).subscribe((ret: any) => {
       this.b.cdResp.data = ret;
       this.b.respond(req, res);
     });

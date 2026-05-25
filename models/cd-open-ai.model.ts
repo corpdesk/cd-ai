@@ -1,9 +1,10 @@
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import { safeStringify } from '../../../sys/utils/safe-stringify.js';
-import { CdOpenAiController } from '../controllers/cd-open-ai.controller.js';
+// import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import CdLog from "../../../sys/comm/controllers/cd-logger.controller";
+import { safeStringify } from "../../../sys/utils/safe-stringify";
+import { CdOpenAiController } from "../controllers/cd-open-ai.controller";
 
 export interface ChatMessage {
-  role: 'user' | 'model' | 'system' | 'assistant';
+  role: "user" | "model" | "system" | "assistant";
   content: string;
 }
 
@@ -53,7 +54,7 @@ export interface OpenAiModelListResponse {
 
 /////////////////////////////////////////////////////
 export interface OpenAiMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 }
 
@@ -89,44 +90,44 @@ export interface OpenAiRequestConfig {
 // }
 
 export const OpenAiHttpData = {
-  method: 'POST',
+  method: "POST",
   headers: {
     Authorization: ``,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
-  body: '',
+  body: "",
 };
 
 //////////////////////////////////////////////////////////////////////////
 
 export const CD_OPEN_AI_CMD = {
-  name: 'openai',
-  description: 'Interact with OpenAI from cd-cli.',
+  name: "openai",
+  description: "Interact with OpenAI from cd-cli.",
   subcommands: [
     {
-      name: 'generate',
-      description: 'Generate code from a prompt',
+      name: "generate",
+      description: "Generate code from a prompt",
       options: [
         {
-          flags: '--prompt <prompt>',
-          description: 'Prompt to send to OpenAI',
+          flags: "--prompt <prompt>",
+          description: "Prompt to send to OpenAI",
         },
       ],
       action: {
         execute: async (options: { prompt: string }) => {
-          CdLog.debug('CdAutoGitController::getGitHubProfile()/options:', {
+          CdLog.debug("CdAutoGitController::getGitHubProfile()/options:", {
             p: safeStringify(options),
           });
           const ctlCdOpenAi = new CdOpenAiController();
           options.prompt =
-            'Hi, I am a software engineer. Currently testing the OpenAi API. Just confirming if the prompt is passed correctly.';
+            "Hi, I am a software engineer. Currently testing the OpenAi API. Just confirming if the prompt is passed correctly.";
           await ctlCdOpenAi.generateFromPrompt(options.prompt);
         },
       },
     },
     {
-      name: 'describe',
-      description: 'Generate code from Corpdesk descriptors',
+      name: "describe",
+      description: "Generate code from Corpdesk descriptors",
       action: {
         execute: async () => {
           const ctlCdOpenAi = new CdOpenAiController();

@@ -1,11 +1,11 @@
-import { CdCliProfileService } from '../../../sys/cd-cli/services/cd-cli-profile.service.js';
-import { SessonController } from '../../../sys/user/controllers/session.controller.js';
-import { CdAiService } from '../services/cd-ai.service.js';
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import config from '../../../../config.js';
-import { CdAiPromptRequest } from '../models/cd-ai.model.js';
-import { DeepSeekChatMessage } from '../models/cd-deepseek.model.js';
-import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller.js';
+import { CdCliProfileService } from '../../../sys/cd-cli/services/cd-cli-profile.service';
+import { SessonController } from '../../../sys/user/controllers/session.controller';
+import { CdAiService } from '../services/cd-ai.service';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import config from '../../../../config';
+import { CdAiPromptRequest } from '../models/cd-ai.model';
+import { DeepSeekChatMessage } from '../models/cd-deepseek.model';
+import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller';
 
 export class CdDeepSeekController {
   ctlSession = new SessonController();

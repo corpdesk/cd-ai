@@ -1,4 +1,4 @@
-import { CdAiServiceInterface } from '../models/cd-ai.model.js';
+import { CdAiServiceInterface } from '../models/cd-ai.model';
 
 export class AiServiceRegistry {
   private static registry = new Map<string, CdAiServiceInterface>();

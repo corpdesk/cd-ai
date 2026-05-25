@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { BaseService } from "../../../sys/base/base.service";
 import {
   IQuery,
@@ -8,7 +9,7 @@ import {
 import { Logging } from "../../../sys/base/winston.log";
 import { ValidationRulesBuilder } from "../../../sys/base/validation-rules-builder";
 import { SessionService } from "../../../sys/user/services/session.service";
-import { CdAiModel } from "../models/cd-ai.model";
+// import { CdAiModel } from "../models/cd-ai.model";
 import { CdAiTypeModel } from "../models/cd-ai-type.model";
 import { CdAiViewModel } from "../models/cd-ai-view.model";
 import { CdAiUsageLogsModel } from "../models/cd-ai-usage-logs.model";
@@ -17,18 +18,18 @@ import { CdAiUsageLogsViewModel } from "../models/cd-ai-usage-logs-view.model";
 
 export class CdAiTypeService {
   logger: Logging;
-  b: BaseService;
-  cdToken: string;
-  uid: number;
+  b: BaseService<any>;
+  cdToken!: string;
+  uid!: number;
   serviceModel: CdAiTypeModel;
-  svSess: SessionService;
+  svSess!: SessionService;
   validationCreateParams: any;
   cRules: any = { required: ["cdAiTypeName"], noDuplicate: ["cdAiTypeName"] };
 
   // <<cd:method:constructor:start>>
   constructor() {
     // super()
-    this.b = new BaseService();
+    this.b = new BaseService<any>();
     this.logger = new Logging();
     this.serviceModel = new CdAiTypeModel();
   }
@@ -113,8 +114,6 @@ export class CdAiTypeService {
         )
       ) {
         // Success path
-        const pl: CdAiTypeModel = this.b.getPlData(req);
-
         await this.b.beforeCreateGeneric(req, {
           cdAiTypeGuid: "GUID",
           cdAiTypeEnabled: true,
@@ -133,7 +132,9 @@ export class CdAiTypeService {
     }
 
     if (this.b.err.length > 0) {
-      this.b.cdResp.app_state.info.messages = this.b.err;
+      if (this.b.cdResp.app_state?.info) {
+        this.b.cdResp.app_state.info.messages = this.b.err;
+      }
       await this.b.setAppState(false, this.b.i, svSess.sessResp);
     } else {
       await this.b.setAppState(true, this.b.i, svSess.sessResp);
@@ -145,7 +146,7 @@ export class CdAiTypeService {
   // <<cd:method:create:end>>
 
   // <<cd:method:validateCreate:start>>
-  async validateCreate(req: any, res: any) {
+  async validateCreate(req: Request, res: Response) {
     this.logger.logInfo("CdAiTypeCdAiTypeService::validateCreate()/01");
     const svSess = new SessionService();
     ///////////////////////////////////////////////////////////////////
@@ -240,7 +241,7 @@ export class CdAiTypeService {
    * @param req
    * @param res
    */
-  getCount(req: any, res: any) {
+  getCount(req: Request, res: Response) {
     const q = this.b.getQuery(req);
     this.logger.logInfo("CdAiTypeService::getCount/q:", q);
     const serviceInput = {
@@ -255,7 +256,7 @@ export class CdAiTypeService {
     this.b.readCount$(req, res, serviceInput).subscribe((r) => {
       this.b.i.code = "CdAiTypeService::getCount";
       const svSess = new SessionService();
-      svSess.sessResp.cd_token = req.post.dat.token;
+      svSess.sessResp.cd_token = (req as any).post.dat.token;
       svSess.sessResp.ttl = svSess.getTtl();
       this.b.setAppState(true, this.b.i, svSess.sessResp);
       this.b.cdResp.data = r;
@@ -284,7 +285,7 @@ export class CdAiTypeService {
     this.b.readCount$(req, res, serviceInput).subscribe((r) => {
       this.b.i.code = "CdAiTypeService::getPaged";
       const svSess = new SessionService();
-      svSess.sessResp.cd_token = req.post.dat.token;
+      svSess.sessResp.cd_token = (req as any).post.dat.token;
       svSess.sessResp.ttl = svSess.getTtl();
       this.b.setAppState(true, this.b.i, svSess.sessResp);
       this.b.cdResp.data = r;
@@ -307,7 +308,7 @@ export class CdAiTypeService {
    * @param req
    * @param res
    */
-  getType(req: any, res: any) {
+  getType(req: Request, res: Response) {
     const q = this.b.getQuery(req);
     this.logger.logInfo("CdAiTypeService::getType:", q);
     const serviceInput = {
@@ -324,7 +325,7 @@ export class CdAiTypeService {
         // this.logger.logInfo('CdAiTypeService::read$()/r:', r)
         this.b.i.code = "CdAiTypeService::getType";
         const svSess = new SessionService();
-        svSess.sessResp.cd_token = req.post.dat.token;
+        svSess.sessResp.cd_token = (req as any).post.dat.token;
         svSess.sessResp.ttl = svSess.getTtl();
         this.b.setAppState(true, this.b.i, svSess.sessResp);
         this.b.cdResp.data = r;
@@ -369,7 +370,7 @@ export class CdAiTypeService {
   // <<cd:method:updateCdAiTypeProfile:end>>
 
   // <<cd:method:update:start>>
-  update(req: any, res: any) {
+  update(req: Request, res: Response) {
     // this.logger.logInfo('CdAiTypeService::update()/01');
     let q = this.b.getQuery(req);
     q = this.beforeUpdate(q);
@@ -383,7 +384,7 @@ export class CdAiTypeService {
       dSource: 1,
     };
     // this.logger.logInfo('CdAiTypeService::update()/02')
-    this.b.update$(req, res, serviceInput).subscribe((ret) => {
+    this.b.update$(req, res, serviceInput).subscribe((ret: any) => {
       this.b.cdResp.data = ret;
       this.b.respond(req, res);
     });
@@ -391,7 +392,7 @@ export class CdAiTypeService {
   // <<cd:method:update:end>>
 
   // <<cd:method:delete:start>>
-  delete(req: any, res: any) {
+  delete(req: Request, res: Response) {
     const q = this.b.getQuery(req);
     this.logger.logInfo("CdAiTypeService::delete()/q:", q);
     const serviceInput = {
@@ -404,7 +405,7 @@ export class CdAiTypeService {
       dSource: 1,
     };
 
-    this.b.delete$(req, res, serviceInput).subscribe((ret) => {
+    this.b.delete$(req, res, serviceInput).subscribe((ret: any) => {
       this.b.cdResp.data = ret;
       this.b.respond(req, res);
     });

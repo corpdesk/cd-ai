@@ -1,8 +1,8 @@
 // src/CdCli/app/cd-ai/services/queue-watcher.service.ts
 
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import { QueueWatcherConfig, QueuedTask } from '../models/queue-watcher.model.js';
-import { CdAiLogRouterService } from './cd-ai-log-router.service.js';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import { QueueWatcherConfig, QueuedTask } from '../models/queue-watcher.model';
+import { CdAiLogRouterService } from './cd-ai-log-router.service';
 
 export class QueueWatcherService {
   private static interval: NodeJS.Timeout | null = null;

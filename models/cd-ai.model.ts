@@ -1,7 +1,7 @@
 // src/CdCli/app/cd-ai/models/cd-ai.model.ts
 
-import { CdAiLogRouterService } from '../services/cd-ai-log-router.service.js';
-import { BudgetStatus } from './budget-guard.model.js';
+import { CdAiLogRouterService } from '../services/cd-ai-log-router.service';
+import { BudgetStatus } from './budget-guard.model';
 
 export interface CdAiPromptRequest {
   provider: 'openai' | 'gemini' | 'deepseek';

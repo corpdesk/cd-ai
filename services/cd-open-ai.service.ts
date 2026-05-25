@@ -5,17 +5,17 @@ import {
   ChatResponse,
   OpenAiHttpData,
   OpenAiRequestConfig,
-} from '../models/cd-open-ai.model.js';
-import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model.js';
+} from '../models/cd-open-ai.model';
+import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model';
 import { join } from 'node:path';
 import fs from 'node:fs';
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller.js';
-import CdCliVaultController from '../../../sys/cd-cli/controllers/cd-cli-vault.controller.js';
-import { EncryptionMeta } from '../../../sys/cd-cli/models/cd-cli-vault.model.js';
-import { AiServiceRegistry } from './cd-ai-registry.service.js';
-import { HttpService } from '../../../sys/base/http.service.js';
-import { IProfileDetails } from '../../../sys/cd-cli/models/cd-cli-profile.model.js';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller';
+import CdCliVaultController from '../../../sys/cd-cli/controllers/cd-cli-vault.controller';
+import { EncryptionMeta } from '../../../sys/cd-cli/models/cd-cli-vault.model';
+import { AiServiceRegistry } from './cd-ai-registry.service';
+import { HttpService } from '../../../sys/base/http.service';
+import { IProfileDetails } from '../../../sys/cd-cli/models/cd-cli-profile.model';
 
 export class CdOpenAiService {
   readonly name = 'Open AI';

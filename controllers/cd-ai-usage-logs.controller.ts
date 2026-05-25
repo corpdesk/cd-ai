@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { BaseService } from "../../../sys/base/base.service";
 import {
   IQuery,
@@ -10,9 +11,10 @@ import { CdAiService } from "../services/cd-ai.service";
 import { CdAiTypeService } from "../services/cd-ai-type.service";
 import { CdAiUsageLogsService } from "../services/cd-ai-usage-logs.service";
 import { CdAiUsageLogsTypeService } from "../services/cd-ai-usage-logs-type.service";
+import { CdAiUsageLogsModel } from "../models/cd-ai-usage-logs.model";
 
 export class CdAiUsageLogsController {
-  private b: BaseService;
+  private b: BaseService<CdAiUsageLogsModel>;
 
   private svCdAiUsageLogs: CdAiUsageLogsService;
 
@@ -65,7 +67,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async Create(req: any, res: any) {
+  async Create(req: Request, res: Response) {
     try {
       await this.svCdAiUsageLogs.create(req, res);
     } catch (e) {
@@ -102,7 +104,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async Get(req: any, res: any) {
+  async Get(req: Request, res: Response) {
     try {
       await this.svCdAiUsageLogs.get(req, res);
     } catch (e) {
@@ -136,7 +138,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async GetType(req: any, res: any) {
+  async GetType(req: Request, res: Response) {
     try {
       // await this.svCdAiUsageLogs.getCdAiUsageLogsType(req, res);
       await this.svCdAiUsageLogs.getType(req, res);
@@ -177,7 +179,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async GetCount(req: any, res: any) {
+  async GetCount(req: Request, res: Response) {
     try {
       await this.svCdAiUsageLogs.getCount(req, res);
     } catch (e) {
@@ -215,7 +217,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async GetPaged(req: any, res: any) {
+  async GetPaged(req: Request, res: Response) {
     try {
       await this.svCdAiUsageLogs.getPaged(req, res);
     } catch (e) {
@@ -256,7 +258,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async Update(req: any, res: any) {
+  async Update(req: Request, res: Response) {
     console.log("CdAiUsageLogsController::Update()/01");
     try {
       console.log("CdAiUsageLogsController::Update()/02");
@@ -291,7 +293,7 @@ export class CdAiUsageLogsController {
      * @param req
      * @param res
      */
-  async Delete(req: any, res: any) {
+  async Delete(req: Request, res: Response) {
     try {
       await this.svCdAiUsageLogs.delete(req, res);
     } catch (e) {

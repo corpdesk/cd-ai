@@ -1,7 +1,7 @@
-// src/CdCli/sys/cd-comm/controllers/cd-logger.controller.ts
+// src/CdCli/sys/comm/controllers/cd-logger.controller.ts
 
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import { CdAiLogRouterService } from '../services/cd-ai-log-router.service.js';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import { CdAiLogRouterService } from '../services/cd-ai-log-router.service';
 
 CdLog.aiInfo = (msg: string) => {
   const line = `[${new Date().toISOString()}] ℹ️ ${msg}`;

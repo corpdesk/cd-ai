@@ -1,8 +1,8 @@
 // src/CdCli/app/cd-ai/services/budget-guard.service.ts
 
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import { BudgetStatus } from '../models/budget-guard.model.js';
-import { CdAiLogRouterService } from './cd-ai-log-router.service.js';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import { BudgetStatus } from '../models/budget-guard.model';
+import { CdAiLogRouterService } from './cd-ai-log-router.service';
 
 export class BudgetGuardService {
   static start(): void {

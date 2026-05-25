@@ -1,18 +1,11 @@
+import { Request, Response } from "express";
 import { BaseService } from "../../../sys/base/base.service";
-import {
-  IQuery,
-  IRespInfo,
-  ICdRequest,
-  IServiceInput,
-} from "../../../sys/base/i-base";
-import { Logging } from "../../../sys/base/winston.log";
 import { CdAiService } from "../services/cd-ai.service";
 import { CdAiTypeService } from "../services/cd-ai-type.service";
-import { CdAiUsageLogsService } from "../services/cd-ai-usage-logs.service";
-import { CdAiUsageLogsTypeService } from "../services/cd-ai-usage-logs-type.service";
+import { CdAiTypeModel } from "../models/cd-ai-type.model";
 
 export class CdAiTypeController {
-  private b: BaseService;
+  private b: BaseService<CdAiTypeModel>;
 
   private svCdAi: CdAiService;
 
@@ -21,6 +14,7 @@ export class CdAiTypeController {
   // <<cd:method:constructor:start>>
   constructor() {
     this.b = new BaseService();
+    this.svCdAi = new CdAiService();
     this.svCdAiType = new CdAiTypeService();
   }
   // <<cd:method:constructor:end>>

@@ -3,15 +3,15 @@ import {
   DeepSeekChatResponse,
   DeepSeekHttpData,
   DeepSeekRequestConfig,
-} from '../models/cd-deepseek.model.js';
-import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model.js';
-import CdLog from '../../../sys/cd-comm/controllers/cd-logger.controller.js';
-import CdCliVaultController from '../../../sys/cd-cli/controllers/cd-cli-vault.controller.js';
-import { EncryptionMeta } from '../../../sys/cd-cli/models/cd-cli-vault.model.js';
-import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller.js';
-import { AiServiceRegistry } from './cd-ai-registry.service.js';
-import { HttpService } from '../../../sys/base/http.service.js';
-import { IProfileDetails } from '../../../sys/cd-cli/models/cd-cli-profile.model.js';
+} from '../models/cd-deepseek.model';
+import { CdAiPromptRequest, CdAiPromptResponse } from '../models/cd-ai.model';
+import CdLog from '../../../sys/comm/controllers/cd-logger.controller';
+import CdCliVaultController from '../../../sys/cd-cli/controllers/cd-cli-vault.controller';
+import { EncryptionMeta } from '../../../sys/cd-cli/models/cd-cli-vault.model';
+import { CdCliProfileController } from '../../../sys/cd-cli/controllers/cd-cli-profile.cointroller';
+import { AiServiceRegistry } from './cd-ai-registry.service';
+import { HttpService } from '../../../sys/base/http.service';
+import { IProfileDetails } from '../../../sys/cd-cli/models/cd-cli-profile.model';
 
 export class CdDeepSeekService {
   readonly name = 'Deepseek AI';
